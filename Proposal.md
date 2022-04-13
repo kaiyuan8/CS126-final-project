@@ -9,4 +9,6 @@ A complete particle movement smulation will be completed by the first week
 
 A complete virus status will be cirrectly updated by the second week
 
-A complete settings/choices to adjust simulator will be completed by the thrid week
+A Furnished single map will be completed by the thrid week
+
+A complete settingss to adjust simulator will be added by the forth week
