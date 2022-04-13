@@ -2,7 +2,7 @@
 
 namespace covidsim {
 
-Person::Person(const std::string &status, float speed,
+Person::Person(const ci::Color &status, float speed,
                const std::vector<vec2> &routes, const std::vector<bool> &health) :
                status_(status), speed_(speed),
                routes_(routes), health_(health) {
@@ -20,8 +20,13 @@ const vec2 &Person::getVelocity() const {
   return velocity_;
 }
 
-const std::string &Person::getStatus() const {
+const ci::Color &Person::getStatus() const {
   return status_;
+}
+
+void Person::AdvanceOneStep() {
+  UpdateRoute();
+  position_ += velocity_;
 }
 
 void Person::UpdateRoute() {

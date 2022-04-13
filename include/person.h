@@ -7,25 +7,29 @@ using glm::vec2;
 namespace covidsim {
 
 /**
- * The particle in the gas container. Particle
- * stores the particle information including position and velocity.
+ * The person in the map, which controls person movement and status
  */
 class Person {
-public:
-    Person(const std::string &status, float speed, const std::vector<vec2> &routes,
-           const std::vector<bool> &health);
+ public:
+  Person(const ci::Color &status, float speed, const std::vector<vec2> &routes,
+         const std::vector<bool> &health);
 
-    const vec2 &getPosition() const;
+  const vec2 &getPosition() const;
 
-    const vec2 &getVelocity() const;
+  const vec2 &getVelocity() const;
 
-    const std::string &getStatus() const;
+  const ci::Color &getStatus() const;
 
-private:
+  /**
+   * Advance one step towards next route point
+   */
+  void AdvanceOneStep();
+
+ private:
   glm::vec2 position_;
   glm::vec2 velocity_;
 
-  std::string status_;
+  ci::Color status_;
   int route_idx_;
   float speed_;
   std::vector<vec2> routes_;
@@ -36,6 +40,9 @@ private:
   const float kDefaultSize = 10;
   const float kDefaultMargin = 5;
 
+  /**
+   * Update route goal to next goal if current is reached
+   */
   void UpdateRoute();
 };
 

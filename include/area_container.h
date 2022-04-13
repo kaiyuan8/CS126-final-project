@@ -13,21 +13,26 @@ namespace covidsim {
  */
 class AreaContainer {
  public:
-    AreaContainer();
+  AreaContainer();
+
+    const std::vector<Person> &getPeople() const;
+
+    void AddPerson(Person p);
 
   /**
-   * Displays the container walls and the current positions of the particles.
+   * Displays the area with people wondering in it
    */
   void Display() const;
 
   /**
-   * Updates the positions and velocities of all particles (based on the rules
-   * described in the assignment documentation).
+   * Updates the positions and velocities of all people
    */
   void AdvanceOneFrame();
 
  private:
-  int dummy_variable_ = 0;
+  std::vector<Person> people_;
+
+  const float kDefaultPersonSize = 10;
 };
 
 }  // namespace idealgas

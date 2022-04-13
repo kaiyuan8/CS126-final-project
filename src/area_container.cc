@@ -8,20 +8,28 @@ namespace covidsim {
 
 using glm::vec2;
 
-    AreaContainer::AreaContainer() {
+AreaContainer::AreaContainer() {
+}
 
+void AreaContainer::AddPerson(Person p) {
+  people_.push_back(p);
 }
 
 void AreaContainer::Display() const {
-  // This function has a lot of magic numbers; be sure to design your code in a way that avoids this.
-  ci::gl::color(ci::Color("orange"));
-  ci::gl::drawSolidCircle(vec2(dummy_variable_, 200), 10);
-  ci::gl::color(ci::Color("white"));
-  ci::gl::drawStrokedRect(ci::Rectf(vec2(100, 100), vec2(600, 400)));
+  for (auto each : people_) {
+    ci::gl::color(each.getStatus());
+    ci::gl::drawSolidCircle(each.getPosition(), kDefaultPersonSize);
+  }
 }
 
 void AreaContainer::AdvanceOneFrame() {
-  ++dummy_variable_;
+  for (auto each : people_) {
+    each.AdvanceOneStep();
+  }
+}
+
+const std::vector<Person> &AreaContainer::getPeople() const {
+  return people_;
 }
 
 }  // namespace idealgas

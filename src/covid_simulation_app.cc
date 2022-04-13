@@ -4,6 +4,8 @@ namespace covidsim {
 
 CovidSimApp::CovidSimApp() {
   ci::app::setWindowSize(kWindowSize, kWindowSize);
+  Person p = new Person();
+  container_.AddPerson()
 }
 
 void CovidSimApp::draw() {
