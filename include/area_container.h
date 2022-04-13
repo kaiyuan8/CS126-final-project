@@ -15,9 +15,9 @@ class AreaContainer {
  public:
   AreaContainer();
 
-    const std::vector<Person> &getPeople() const;
+  const std::vector<Person*> &getPeople() const;
 
-    void AddPerson(Person p);
+  void AddPerson(Person* p);
 
   /**
    * Displays the area with people wondering in it
@@ -30,7 +30,7 @@ class AreaContainer {
   void AdvanceOneFrame();
 
  private:
-  std::vector<Person> people_;
+  std::vector<Person*> people_;
 
   const float kDefaultPersonSize = 10;
 };
