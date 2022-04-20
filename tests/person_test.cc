@@ -58,3 +58,36 @@ TEST_CASE("Container movement goal test") {
     REQUIRE(c.getPeople()[0]->getPosition() == vec2(100, 100));
   }
 }
+
+TEST_CASE("Person Status test") {
+  AreaContainer c;
+  SECTION("Test person will change status if contact") {
+    std::vector<vec2> routes1 = {vec2(0, 0), vec2(10, 0)};
+    Person* p1 = new Person(ci::Color("red"), float(5), routes1,
+                            std::vector<bool>({false, false, false}));
+    c.AddPerson(p1);
+
+    std::vector<vec2> routes2 = {vec2(10, 0), vec2(0, 0)};
+    Person* p2 = new Person(ci::Color("green"), float(5), routes2,
+                            std::vector<bool>({false, false, false}));
+    c.AddPerson(p2);
+
+    c.AdvanceOneFrame();
+    REQUIRE(c.getPeople()[1]->getStatus() == ci::Color("red"));
+  }
+
+  SECTION("Test person will not change status if not contact") {
+    std::vector<vec2> routes1 = {vec2(0, 0), vec2(100, 0)};
+    Person* p1 = new Person(ci::Color("red"), float(5), routes1,
+                            std::vector<bool>({false, false, false}));
+    c.AddPerson(p1);
+
+    std::vector<vec2> routes2 = {vec2(100, 0), vec2(0, 0)};
+    Person* p2 = new Person(ci::Color("green"), float(5), routes2,
+                            std::vector<bool>({false, false, false}));
+    c.AddPerson(p2);
+
+    c.AdvanceOneFrame();
+    REQUIRE(c.getPeople()[1]->getStatus() == ci::Color("green"));
+  }
+}
