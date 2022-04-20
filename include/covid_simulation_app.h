@@ -20,7 +20,8 @@ class CovidSimApp : public ci::app::App {
 
   const int kWindowSize = 875;
   const int kMargin = 100;
-  const int kMaxRoute = 10;
+  const int kDefaultMaxRoute = 10;
+  const float kDefaultSpeed = 2;
 
  private:
   AreaContainer container_;

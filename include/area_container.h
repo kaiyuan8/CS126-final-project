@@ -19,9 +19,13 @@ class AreaContainer {
 
   void AddPerson(Person* p);
 
-  /**
-   * Displays the area with people wondering in it
-   */
+  const cinder::Color &getKDefaultCovidStatus() const;
+
+  const cinder::Color &getKDefaultHealthyStatus() const;
+
+    /**
+     * Displays the area with people wondering in it
+     */
   void Display() const;
 
   /**
@@ -33,6 +37,13 @@ class AreaContainer {
   std::vector<Person*> people_;
 
   const float kDefaultPersonSize = 10;
+  const float kDefaultDistanceFactor = 3;
+  const ci::Color kDefaultCovidStatus = ci::Color("red");
+  const ci::Color kDefaultHealthyStatus = ci::Color("green");
+    const ci::Color kDefaultSelectStatus = ci::Color("blue");
+
+  float EuclideanDistance(const vec2& a, const vec2& b);
+  void CheckContact();
 };
 
 }  // namespace idealgas

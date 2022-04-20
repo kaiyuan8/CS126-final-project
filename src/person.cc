@@ -24,6 +24,10 @@ const ci::Color &Person::getStatus() const {
   return status_;
 }
 
+void Person::setStatus(const cinder::Color &status) {
+  status_ = status;
+}
+
 void Person::AdvanceOneStep() {
   UpdateRoute();
   position_ += velocity_;

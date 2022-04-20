@@ -20,9 +20,11 @@ class Person {
 
   const ci::Color &getStatus() const;
 
-  /**
-   * Advance one step towards next route point
-   */
+  void setStatus(const cinder::Color &status);
+
+    /**
+     * Advance one step towards next route point
+     */
   void AdvanceOneStep();
 
  private:
