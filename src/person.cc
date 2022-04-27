@@ -42,4 +42,12 @@ void Person::UpdateRoute() {
   }
 }
 
+const std::vector<bool> &Person::getHealth() const {
+  return health_;
+}
+
+void Person::setHealth(const std::vector<bool> &health) {
+  health_ = health;
+}
+
 }  // namespace covidsim

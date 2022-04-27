@@ -31,6 +31,29 @@ void AreaDisplay::Display(std::vector<Person*> people, int idx) const {
 void AreaDisplay::DisplaySelected(Person* p) const {
   ci::gl::color(kDefaultSelectStatus);
   ci::gl::drawSolidCircle(p->getPosition(), person_size_);
+
+  float y_pos = static_cast<float>(margin_);
+  float x_pos = static_cast<float>(window_size_ - margin_ * 2);
+  std::vector<bool> condition = p->getHealth();
+
+  ci::gl::color(p->getStatus());
+  ci::gl::drawSolidCircle(glm::vec2(x_pos, y_pos), person_size_ * 4);
+
+  ci::gl::color(kDefaultStringColor);
+  for (size_t i = 0; i < kDefaultMsg.size(); i++) {
+    ci::gl::drawString(kDefaultMsg[i], vec2(x_pos, y_pos *
+    static_cast<float>(i + 2)),kDefaultStringColor,
+                       ci::Font("helvetica", kDefaultFontSize));
+
+    if (condition[i]) {
+      ci::gl::drawSolidCircle(glm::vec2(x_pos + y_pos,y_pos *
+      static_cast<float>(i + 2 + kConditionDis)), person_size_ * 4);
+    } else {
+      ci::gl::drawStrokedCircle(glm::vec2(x_pos + y_pos,y_pos *
+      static_cast<float>(i + 2 + kConditionDis)), person_size_ * 4);
+    }
+
+  }
 }
 
 }  // namespace covidsim

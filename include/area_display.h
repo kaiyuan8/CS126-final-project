@@ -19,6 +19,10 @@ public:
    */
   void Display(std::vector<Person*> people, int idx) const;
 
+  /**
+   * Display selected person
+   * @param p the selected person
+   */
   void DisplaySelected(Person* p) const;
 
 private:
@@ -28,6 +32,12 @@ private:
 
   const ci::Color kDefaultSelectStatus = ci::Color("blue");
   const ci::Color kDefaultBoardColor = ci::Color("white");
+  const ci::Color kDefaultStringColor = ci::Color("white");
+  const float kDefaultFontSize = 30;
+  const double kConditionDis = 0.5;
+
+  const std::vector<std::string> kDefaultMsg = std::vector<std::string>(
+            {"Wearing a Mask", "Fully Vaccinated", "Immunized"});
 
 };
 

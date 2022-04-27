@@ -20,11 +20,15 @@ class Person {
 
   const ci::Color &getStatus() const;
 
+  const std::vector<bool> &getHealth() const;
+
+  void setHealth(const std::vector<bool> &health);
+
   void setStatus(const cinder::Color &status);
 
-    /**
-     * Advance one step towards next route point
-     */
+  /**
+   * Advance one step towards next route point
+   */
   void AdvanceOneStep();
 
  private:
