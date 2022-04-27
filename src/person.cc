@@ -42,4 +42,4 @@ void Person::UpdateRoute() {
   }
 }
 
-}  // namespace idealgas
+}  // namespace covidsim

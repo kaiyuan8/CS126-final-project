@@ -4,6 +4,7 @@
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 #include "area_container.h"
+#include "area_display.h"
 
 namespace covidsim {
 
@@ -20,9 +21,16 @@ class CovidSimApp : public ci::app::App {
 
   const int kWindowSize = 875;
   const int kMargin = 100;
+  const float kDefaultPersonSize = 5;
+  const float kDefaultDistanceFactor = 3;
+  const ci::Color kDefaultCovidStatus = ci::Color("red");
+  const ci::Color kDefaultHealthyStatus = ci::Color("green");
 
  private:
-  AreaContainer container_;
+  int index_;
+  AreaContainer* container_;
+  AreaDisplay* display_;
+
 };
 
 }  // namespace idealgas

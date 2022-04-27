@@ -13,55 +13,42 @@ namespace covidsim {
  */
 class AreaContainer {
  public:
-  AreaContainer();
+    AreaContainer(int windowSize, int margin);
 
-  /**
-   * Get the people list as vector
-   * @return Person in vector
-   */
+    /**
+     * Get the people list as vector
+     * @return Person in vector
+     */
   const std::vector<Person*> &getPeople() const;
 
   /**
    * Add a person to the environment
-   * @param isHealthy if the person is healthy
+   * @param status if the person is healthy
    */
-  void AddPerson(bool isHealthy);
-
-  const cinder::Color &getKDefaultCovidStatus() const;
-
-  const cinder::Color &getKDefaultHealthyStatus() const;
+  void AddPerson(ci::Color status);
 
   /**
-   * Get next person to display
+   * Add a person to the environment
+   * @param p the new Person
    */
-  void GetNextPerson();
+  void AddPerson(Person* p);
 
   /**
-   * Displays the area with people wondering in it
+   * Advance one frame for all person in area
+   * @param status the status that needs to update
+   * @param distance the distance to consider contact
    */
-  void Display() const;
+  void AdvanceOneFrame(ci::Color status, float distance);
 
-  /**
-   * Updates the positions and velocities of all people
-   */
-  void AdvanceOneFrame();
-
- private:
+private:
+  int window_size_;
+  int margin_;
   std::vector<Person*> people_;
-  int index_;
 
-  const float kDefaultPersonSize = 5;
-  const float kDefaultDistanceFactor = 3;
-  const int kWindowSize = 875;
-  const int kMargin = 100;
   const int kDefaultMaxRoute = 10;
   const float kDefaultSpeed = 1;
-  const ci::Color kDefaultCovidStatus = ci::Color("red");
-  const ci::Color kDefaultHealthyStatus = ci::Color("green");
-  const ci::Color kDefaultSelectStatus = ci::Color("blue");
-  const ci::Color kDefaultBoardColor = ci::Color("white");
 
-  float EuclideanDistance(const vec2& a, const vec2& b);
+  float AreaContainer::EuclideanDistance(const vec2& a, const vec2& b);
 };
 
-}  // namespace idealgas
+}  // namespace covidsim

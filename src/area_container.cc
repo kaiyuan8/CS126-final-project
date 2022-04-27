@@ -8,58 +8,42 @@ namespace covidsim {
 
 using glm::vec2;
 
-AreaContainer::AreaContainer() {
-  index_ = 0;
-}
+AreaContainer::AreaContainer(int windowSize, int margin) :
+      window_size_(windowSize), margin_(margin) {}
 
-void AreaContainer::AddPerson(bool isHealthy) {
+void AreaContainer::AddPerson(ci::Color status) {
   std::vector<vec2> routes;
   for (int i = 0; i < kDefaultMaxRoute; i++) {
     float x_position = static_cast<float>(rand() %
-                                          static_cast<int>(kWindowSize - 3 * kMargin) + kMargin / 2);
+               static_cast<int>(window_size_ - 3 * margin_) + margin_ / 2);
     float y_position = static_cast<float>(rand() %
-                                          static_cast<int>(kWindowSize - kMargin) + kMargin / 2);
+               static_cast<int>(window_size_ - margin_) + margin_ / 2);
     routes.push_back(vec2(x_position, y_position));
   }
-  Person* p = new Person(isHealthy ? kDefaultHealthyStatus : kDefaultCovidStatus,
-                         kDefaultSpeed, routes,
+  Person* p = new Person(status,kDefaultSpeed, routes,
                          std::vector<bool>({false, false, false}));
   people_.push_back(p);
 }
 
-void AreaContainer::Display() const {
-  if (!people_.empty()) {
-    for (size_t i = 0; i < people_.size(); i++) {
-      auto each = people_[i];
-      ci::gl::color(each->getStatus());
-      if (index_ == i) {
-        ci::gl::color(kDefaultSelectStatus);
-      }
-      ci::gl::drawSolidCircle(each->getPosition(), kDefaultPersonSize);
-    }
-  }
-
-  ci::gl::color(kDefaultBoardColor);
-  ci::gl::drawStrokedRect(ci::Rectf(glm::vec2(kMargin / 2, kMargin / 2),
-            glm::vec2(kWindowSize - kMargin * 5 / 2,kWindowSize - kMargin / 2)));
-}
-
-void AreaContainer::AdvanceOneFrame() {
-  for (auto each : people_) {
-    each->AdvanceOneStep();
-    if (each->getStatus() == kDefaultCovidStatus) {
-      for (auto other : people_) {
-        if (EuclideanDistance(each->getPosition(), other->getPosition()) <=
-            kDefaultDistanceFactor * kDefaultPersonSize) {
-          other->setStatus(kDefaultCovidStatus);
-        }
-      }
-    }
-  }
+void AreaContainer::AddPerson(Person* p) {
+  people_.push_back(p);
 }
 
 const std::vector<Person*> &AreaContainer::getPeople() const {
   return people_;
+}
+
+void AreaContainer::AdvanceOneFrame(ci::Color status, float distance) {
+  for (auto each : people_) {
+    each->AdvanceOneStep();
+    if (each->getStatus() == status) {
+      for (auto other : people_) {
+        if (EuclideanDistance(each->getPosition(), other->getPosition()) <= distance) {
+          other->setStatus(status);
+        }
+      }
+    }
+  }
 }
 
 float AreaContainer::EuclideanDistance(const vec2& a, const vec2& b) {
@@ -68,19 +52,4 @@ float AreaContainer::EuclideanDistance(const vec2& a, const vec2& b) {
   return std::sqrt(std::pow(x, 2) + pow(y, 2));
 }
 
-const cinder::Color &AreaContainer::getKDefaultCovidStatus() const {
-  return kDefaultCovidStatus;
-}
-
-const cinder::Color &AreaContainer::getKDefaultHealthyStatus() const {
-  return kDefaultHealthyStatus;
-}
-
-void AreaContainer::GetNextPerson() {
-  if (!people_.empty()) {
-    index_ = (index_ + 1) % people_.size();
-  }
-}
-
-
-}  // namespace idealgas
+}  // namespace covidsim

@@ -48,4 +48,4 @@ class Person {
   void UpdateRoute();
 };
 
-}  // namespace idealgas
+}  // namespace covidsim
