@@ -45,7 +45,7 @@ private:
   int margin_;
   std::vector<Person*> people_;
 
-  const float kDefaultDecayRate = 0.5;
+  const float kDefaultDecayRate = 0.3f;
   const int kDefaultMaxRoute = 10;
   const float kDefaultSpeed = 1;
 

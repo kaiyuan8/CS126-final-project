@@ -38,8 +38,10 @@ void AreaContainer::AdvanceOneFrame(ci::Color status, float distance) {
     if (each->getStatus() == status) {
       for (auto other : people_) {
         if (EuclideanDistance(each->getPosition(), other->getPosition()) <= distance) {
-          std::vector<bool> vec = other->getHealth();
-          if (UpdateStatus(vec)) {
+          std::vector<bool> vec1 = other->getHealth();
+          std::vector<bool> vec2 = other->getHealth();
+          vec1.insert(vec1.end(), vec2.begin(), vec2.end());
+          if (UpdateStatus(vec1)) {
             other->setStatus(status);
           }
         }
