@@ -9,7 +9,7 @@ AreaDisplay::AreaDisplay(float personSize, int windowSize, int margin) {
   margin_ = margin;
 }
 
-void AreaDisplay::Display(std::vector<Person*> people, int idx) const {
+void AreaDisplay::Display(std::vector<Person*> people, int idx, std::vector<bool> setting) const {
   if (!people.empty()) {
     for (size_t i = 0; i < people.size(); i++) {
       auto each = people[i];
@@ -21,11 +21,29 @@ void AreaDisplay::Display(std::vector<Person*> people, int idx) const {
       }
     }
   }
+  DisplaySetting(setting);
 
   ci::gl::color(kDefaultBoardColor);
   ci::gl::drawStrokedRect(ci::Rectf(glm::vec2(margin_ / 2, margin_ / 2),
                                     glm::vec2(window_size_ - margin_ * 5 / 2,
                                               window_size_ - margin_ / 2)));
+}
+
+void AreaDisplay::DisplaySetting(std::vector<bool> setting) const {
+  ci::gl::color(kDefaultBoardColor);
+  float pos1 = static_cast<float>(margin_);
+  float pos2 = static_cast<float>(window_size_ - margin_ * 2);
+  for (size_t i = 0; i < setting.size() - 1; i++) {
+    if (setting[i]) {
+      ci::gl::drawSolidRect(ci::Rectf(glm::vec2(pos2 + static_cast<float>(2 * i) / 2 * pos1, pos2),
+                                      glm::vec2(pos2 + static_cast<float>(2 * i + 1) / 2 * pos1,
+                                                pos2 + pos1)));
+    } else {
+      ci::gl::drawStrokedRect(ci::Rectf(glm::vec2(pos2 + static_cast<float>(2 * i) / 2 * pos1, pos2),
+                                      glm::vec2(pos2 + static_cast<float>(2 * i + 1) / 2 * pos1,
+                                                pos2 + pos1)));
+    }
+  }
 }
 
 void AreaDisplay::DisplaySelected(Person* p) const {

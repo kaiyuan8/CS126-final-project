@@ -28,6 +28,7 @@ class CovidSimApp : public ci::app::App {
 
  private:
   int index_;
+  std::vector<bool> status_;
   AreaContainer* container_;
   AreaDisplay* display_;
 

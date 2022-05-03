@@ -4,6 +4,9 @@ namespace covidsim {
 
 CovidSimApp::CovidSimApp() {
   index_ = 0;
+  for (int i = 0; i < 3; i++) {
+    status_.push_back(false);
+  }
   ci::app::setWindowSize(kWindowSize, kWindowSize);
   container_ = new AreaContainer(kWindowSize, kMargin);
   display_ = new AreaDisplay(kDefaultPersonSize, kWindowSize, kMargin);
@@ -14,7 +17,7 @@ void CovidSimApp::draw() {
   ci::gl::clear(background_color);
 
   std::vector<Person*> people = container_->getPeople();
-  display_->Display(people, index_);
+  display_->Display(people, index_, status_);
 }
 
 void CovidSimApp::update() {
@@ -23,12 +26,20 @@ void CovidSimApp::update() {
 }
 
 void CovidSimApp::keyDown(cinder::app::KeyEvent event ) {
+  if(event.getChar() == 'k' ) {
+    container_->AddPerson(kDefaultHealthyStatus, status_);
+  }
+
+  if(event.getChar() == 'l' ) {
+    container_->AddPerson(kDefaultCovidStatus, status_);
+  }
+
   if(event.getChar() == 'q' ) {
-    container_->AddPerson(kDefaultHealthyStatus);
+    status_[0] = !status_[0];
   }
 
   if(event.getChar() == 'w' ) {
-    container_->AddPerson(kDefaultCovidStatus);
+    status_[1] = !status_[1];
   }
 
   else if( event.getCode() == cinder::app::KeyEvent::KEY_SPACE ) {

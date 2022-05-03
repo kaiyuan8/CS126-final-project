@@ -13,19 +13,19 @@ namespace covidsim {
  */
 class AreaContainer {
  public:
-    AreaContainer(int windowSize, int margin);
+  AreaContainer(int windowSize, int margin);
 
-    /**
-     * Get the people list as vector
-     * @return Person in vector
-     */
+  /**
+   * Get the people list as vector
+   * @return Person in vector
+   */
   const std::vector<Person*> &getPeople() const;
 
   /**
    * Add a person to the environment
    * @param status if the person is healthy
    */
-  void AddPerson(ci::Color status);
+  void AddPerson(ci::Color status, std::vector<bool> cond);
 
   /**
    * Add a person to the environment
@@ -45,10 +45,18 @@ private:
   int margin_;
   std::vector<Person*> people_;
 
+  const float kDefaultDecayRate = 0.5;
   const int kDefaultMaxRoute = 10;
   const float kDefaultSpeed = 1;
 
-  float AreaContainer::EuclideanDistance(const vec2& a, const vec2& b);
+  float EuclideanDistance(const vec2& a, const vec2& b);
+
+  /**
+   * Checks the current person's status to change health condition
+   * @param vec the input status vector
+   * @return if change condition or not
+   */
+  bool UpdateStatus(std::vector<bool> vec);
 };
 
 }  // namespace covidsim

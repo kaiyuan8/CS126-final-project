@@ -27,6 +27,13 @@ class Person {
   void setStatus(const cinder::Color &status);
 
   /**
+   * Change health status of index to desired one
+   * @param index the index to change
+   * @param status the status to change to
+   */
+  void setHealth(int index, bool status);
+
+  /**
    * Advance one step towards next route point
    */
   void AdvanceOneStep();

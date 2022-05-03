@@ -50,4 +50,10 @@ void Person::setHealth(const std::vector<bool> &health) {
   health_ = health;
 }
 
+void Person::setHealth(int index, bool status) {
+  if ((size_t) index < health_.size()) {
+    health_[index] = status;
+  }
+}
+
 }  // namespace covidsim

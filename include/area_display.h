@@ -17,13 +17,19 @@ public:
     /**
    * Displays the area with people wondering in it
    */
-  void Display(std::vector<Person*> people, int idx) const;
+  void Display(std::vector<Person*> people, int idx, std::vector<bool> setting) const;
 
   /**
    * Display selected person
    * @param p the selected person
    */
   void DisplaySelected(Person* p) const;
+
+  /**
+   * Display setting
+   * @param p the selected person
+   */
+  void DisplaySetting(std::vector<bool> setting) const;
 
 private:
   float person_size_;
